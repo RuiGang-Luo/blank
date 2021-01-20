@@ -24,7 +24,7 @@ export default {
   data () {
     return {
       // title: 'Vue Element Admin',
-      logo: require('@/icons/picc_logo.png')
+      // logo: require('@/icons/picc_logo.png')
     }
   },
   computed: {
