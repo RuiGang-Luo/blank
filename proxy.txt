@@ -1,0 +1,28 @@
+location /management-web/core/ {
+     proxy_next_upstream http_500 http_502 http_503 http_504 error timeout invalid_header;
+     proxy_set_header Host $host;
+     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+     proxy_pass http://10.130.128.181:21001/;
+     add_header 'Access-Control-Allow-Origin' '*';
+     add_header 'Access-Control-Allow-Credentials' 'true';
+     expires 0;
+}
+   #nginx(反向代理服务器)配置文件
+location /management-web/business/ {
+   #重试机制实现容灾和重复处理问题返回状态码
+   #error:与服务器建立连接，向其传递请求或读取响应头时发生错误
+   #invalid_header:服务器返回空的或无效的响应
+   #timeout:请求超时
+   #设置请求头给上游服务器
+   proxy_next_upstream http_500 http_502 http_503 http_504 error timeout invalid_header;
+   #设置请求头-并将头信息传递到服务器端
+   proxy_set_header Host $host;
+   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+   #实现跨域-设置ip地址及端口号
+   proxy_pass http://10.130.128.180:21002/;
+   #给浏览器设置请求头
+   add_header 'Access-Control-Allow-Origin' '*';
+   add_header 'Access-Control-Allow-Credentials' 'true';
+   #控制页面缓存，减少很多服务器的请求
+   expires 0;
+}
