@@ -1,1 +1,1 @@
-# blank
+# vue-blank
