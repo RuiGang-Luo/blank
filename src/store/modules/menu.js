@@ -14,15 +14,20 @@ const mutations = {
 const actions = {
   generateRouters ({ commit }) {
     return new Promise((resolve, reject) => {
-      getAllMenu().then(response => {
-        const asyncRouters = finterAsyncRouters(response)
-        commit('SET_ROUTERS', asyncRouters)
-        // console.log('state.routers', state.routers)
-        // router.addRoutes(asyncRouters)
-        resolve(state.routers)
-      }).catch(error => {
-        reject(error)
-      })
+      // getAllMenu().then(response => {
+      //   const asyncRouters = finterAsyncRouters(response)
+      //   commit('SET_ROUTERS', asyncRouters)
+      //   // console.log('state.routers', state.routers)
+      //   // router.addRoutes(asyncRouters)
+      //   resolve(state.routers)
+      // }).catch(error => {
+      //   reject(error)
+      // })
+      const asyncRouters = finterAsyncRouters(response)
+      //   commit('SET_ROUTERS', asyncRouters)
+      //   // console.log('state.routers', state.routers)
+      //   // router.addRoutes(asyncRouters)
+      //   resolve(state.routers)
     })
   }
 }

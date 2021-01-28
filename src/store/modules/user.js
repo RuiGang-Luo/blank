@@ -94,6 +94,7 @@ const actions = {
       let response = getInfo(state.token);
       console.log(response)
       const { userAuthentication } = response
+      console.log(userAuthentication)
       if (!userAuthentication) {
         reject('Verification failed, please Login again.')
       }

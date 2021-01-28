@@ -1,27 +1,11 @@
 import request from '@/utils/request'
 
 // 查询任务执行器
-export function deskList(query) {
+export function getJoblist(query) {
   return request({
-    url: '/jobinfo/list',
+    url: '/business/vcenter/job/list',
     method: 'get',
     params: query
-  })
-}
-
-export function turnon(data) {
-  return request({
-    url: '/jobinfo/turnon',
-    method: 'post',
-    data: data
-  })
-}
-
-export function turnoff(data) {
-  return request({
-    url: '/jobinfo/turnoff',
-    method: 'post',
-    data: data
   })
 }
 
@@ -36,7 +20,7 @@ export function addJobInfo(data) {
 
 export function updateJobInfo(data) {
   return request({
-    url: '/jobinfo/update',
+    url: '/business/vcenter/job/update',
     method: 'post',
     data: data
   })
@@ -45,8 +29,8 @@ export function updateJobInfo(data) {
 
 export function delJobInfo(id) {
   return request({
-    url: '/jobinfo/remove/' + id,
-    method: 'get',
+    url: '/business/vcenter/job/delete/' + id,
+    method: 'delete',
   })
 }
 

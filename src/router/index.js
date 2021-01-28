@@ -97,7 +97,46 @@ export const constantRoutes = [
 export const rolesRoutes = function () {
   // console.log(getters.addRouters)
   // let test = []
-  return store.getters.routers
+  return [
+
+    {
+      path: '/desk',
+      component: Layout,
+      redirect: '/dashboard',
+      meta: { isShow: true },
+      children: [
+        {
+          path: '/desklist',
+          component: () => import('@/views/desklist/index'),
+          isShow: true,
+          name: 'Management',
+          meta: {
+            title: '主机列表',
+            // roles: ['editor'],
+            icon: 'example'
+          }
+        }
+      ]
+    }
+    ,{
+      path: '/job',
+      component: Layout,
+      redirect: '/dashboard',
+      meta: { isShow: true },
+      children: [
+        {
+          path: '/joblist',
+          component: () => import('@/views/joblist/index'),
+          name: 'Management',
+          isShow: true,
+          meta: {
+            title: '任务列表',
+            // roles: ['editor'],
+            icon: 'example'
+          }
+        }
+      ]
+    }]
   // console.log('test',test)
   // console.log('getters',getters.state.menu.addRouters)
   // console.log('路由中的routers',store.getters.addRouters)

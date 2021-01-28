@@ -66,28 +66,11 @@ service.interceptors.response.use(
     } else if (response.config.url.endsWith('/core/oauth/token')) {
       return res
     } else {
-      if (res.indexOf('error') !== -1) {
-        let error_description
-        if (res.indexOf('The account permission has been modified, please login again') !== -1) {
-          error_description = '账户权限已被修改，请重新登陆！'
-        }
-        Message({
-          message: error_description,
-          type: 'error',
-          duration: 5 * 1000
-        })
-        store.dispatch('tagsView/delAllViews')
-        store.dispatch('user/resetRoles').then(() => {
-          resetRouter()
-          router.push({ path: '/login', query: null })
-        })
-      } else {
-        Message({
-          message: res.msg || response.error_description || response,
-          type: 'error',
-          duration: 10 * 1000
-        })
-      }
+      Message({
+        message: res.message || response.error_description || response,
+        type: 'error',
+        duration: 10 * 1000
+      })
       // TODO
       return Promise.reject(new Error(res.msg || response))
     }

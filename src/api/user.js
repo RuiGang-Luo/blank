@@ -18,9 +18,35 @@ export function removeRefreshTokenUsingClientId (data) {
 
 export function getInfo (access_token) {
   return {
-    code: 200,
-    msg: '',
-    data: {
+    authorities: [
+      {
+        authority: 'ROLE_FLOWABLE_ADMIN'
+      },
+      {
+        authority: 'access-admin'
+      },
+      {
+        authority: 'access-idm'
+      },
+      {
+        authority: 'access-modeler'
+      },
+      {
+        authority: 'access-rest-api'
+      },
+      {
+        authority: 'access-task'
+      }
+    ],
+    details: {
+      remoteAddress: '0:0:0:0:0:0:0:1',
+      sessionId: null,
+      tokenValue: 'c0ecf1cf-f4a1-4fb7-852b-5c118cc1961b',
+      tokenType: 'Bearer',
+      decodedDetails: null
+    },
+    authenticated: true,
+    userAuthentication: {
       authorities: [
         {
           authority: 'ROLE_FLOWABLE_ADMIN'
@@ -42,97 +68,10 @@ export function getInfo (access_token) {
         }
       ],
       details: {
-        remoteAddress: '0:0:0:0:0:0:0:1',
-        sessionId: null,
-        tokenValue: 'c0ecf1cf-f4a1-4fb7-852b-5c118cc1961b',
-        tokenType: 'Bearer',
-        decodedDetails: null
+        grant_type: 'password',
+        username: 'admin'
       },
       authenticated: true,
-      userAuthentication: {
-        authorities: [
-          {
-            authority: 'ROLE_FLOWABLE_ADMIN'
-          },
-          {
-            authority: 'access-admin'
-          },
-          {
-            authority: 'access-idm'
-          },
-          {
-            authority: 'access-modeler'
-          },
-          {
-            authority: 'access-rest-api'
-          },
-          {
-            authority: 'access-task'
-          }
-        ],
-        details: {
-          grant_type: 'password',
-          username: 'admin'
-        },
-        authenticated: true,
-        principal: {
-          password: null,
-          username: 'admin',
-          authorities: [
-            {
-              authority: 'ROLE_FLOWABLE_ADMIN'
-            },
-            {
-              authority: 'access-admin'
-            },
-            {
-              authority: 'access-idm'
-            },
-            {
-              authority: 'access-modeler'
-            },
-            {
-              authority: 'access-rest-api'
-            },
-            {
-              authority: 'access-task'
-            },
-            {
-              authority: 'admin'
-            }
-          ],
-          accountNonExpired: true,
-          accountNonLocked: true,
-          credentialsNonExpired: true,
-          enabled: true
-        },
-        credentials: null,
-        name: 'admin'
-      },
-      credentials: '',
-      oauth2Request: {
-        clientId: 'antfin',
-        scope: [
-          'read'
-        ],
-        requestParameters: {
-          grant_type: 'password',
-          username: 'admin'
-        },
-        resourceIds: [],
-        authorities: [
-          {
-            authority: 'ROLE_ADMIN'
-          }
-        ],
-        approved: true,
-        refresh: false,
-        redirectUri: null,
-        responseTypes: [],
-        extensions: {},
-        grantType: 'password',
-        refreshTokenRequest: null
-      },
       principal: {
         password: null,
         username: 'admin',
@@ -164,9 +103,66 @@ export function getInfo (access_token) {
         credentialsNonExpired: true,
         enabled: true
       },
-      clientOnly: false,
+      credentials: null,
       name: 'admin'
-    }
+    },
+    credentials: '',
+    oauth2Request: {
+      clientId: 'antfin',
+      scope: [
+        'read'
+      ],
+      requestParameters: {
+        grant_type: 'password',
+        username: 'admin'
+      },
+      resourceIds: [],
+      authorities: [
+        {
+          authority: 'ROLE_ADMIN'
+        }
+      ],
+      approved: true,
+      refresh: false,
+      redirectUri: null,
+      responseTypes: [],
+      extensions: {},
+      grantType: 'password',
+      refreshTokenRequest: null
+    },
+    principal: {
+      password: null,
+      username: 'admin',
+      authorities: [
+        {
+          authority: 'ROLE_FLOWABLE_ADMIN'
+        },
+        {
+          authority: 'access-admin'
+        },
+        {
+          authority: 'access-idm'
+        },
+        {
+          authority: 'access-modeler'
+        },
+        {
+          authority: 'access-rest-api'
+        },
+        {
+          authority: 'access-task'
+        },
+        {
+          authority: 'admin'
+        }
+      ],
+      accountNonExpired: true,
+      accountNonLocked: true,
+      credentialsNonExpired: true,
+      enabled: true
+    },
+    clientOnly: false,
+    name: 'admin'
   }
 }
 
