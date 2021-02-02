@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row :gutter="10" class="mb8" style="margin-bottom: 10px;">
       <el-col :span="1.5">
-        <el-button type="primary"  icon="" @click="handleTurnon">开机</el-button>
+        <el-button type="success"  icon="" @click="handleTurnon">开机</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button type="danger"  icon="" @click="handleTurnoff">关机</el-button>
@@ -16,19 +16,27 @@
       <el-row :gutter="10" class="mb8">
 
           <el-col style="margin-bottom: 10px;" :span="4" v-for="item in deskList" :key="item.name" >
-            <div class="clickPanel"  @click.stop.prevent="clickParent(item.name)">
-              <el-card :class="{'box-card':true,'green':(item.power_state === 'POWERED_ON')}" >
+            <div :class="{'clickPanel':true,'green':(item.power_state === 'POWERED_ON'),'violet':(item.jobInfo),'grey':(item.power_state === 'POWERED_OFF')}" @click.stop.prevent="clickParent(item.name,$event)">
+              <el-card :class="{'box-card':true, 'transparent_80':!checkObject[item.name],'transparent_0':checkObject[item.name]}" >
                 <div slot="header" class="clearfix">
                   <el-checkbox :label="item.name"  style=" padding: 3px 0" type="text"  :key="item.vm"  />
                 </div>
                 <div class="text item">
-                  CPU : {{item.cpu_count}}
+                  CPU: {{item.cpu_count}}
                 </div>
                 <div class="text item">
-                  内存 : {{item.memory_size_MiB}}
+                  内存: {{item.memory_size_MiB}}
                 </div>
-                <div class="text item">
-                  状态 : {{item.power_state === 'POWERED_ON'?'运行中':'已关机'}}
+                <div v-if="!item.jobInfo" class="text item" >
+                  状态: {{item.power_state === 'POWERED_ON'?'运行中':'已关机'}}
+                </div>
+                <div  v-if="item.jobInfo" class="text item">
+                  状态:
+                  <div style="height: 30px;overflow-y: auto;width:78%;float:right">
+                    <div v-for="job in item.jobInfo" style="float:right">
+                      <div>{{( job.jobFreq) | weekConversion }}&nbsp;{{ job.jobTime}} <svg-icon v-if="job.action == '1'" icon-class="start"  style="height: 14px;width: 14px;color: greenyellow;"/><svg-icon v-if="job.action == '2'" icon-class="stop"  style="height: 14px;width: 14px;color: orangered;"/></div>
+                    </div>
+                  </div>
                 </div>
               </el-card>
             </div>
@@ -76,13 +84,34 @@ import {
   addJobInfo,
 } from "@/api/desk/desk";
 import { Message } from 'element-ui'
-
+let JobFreqList = [
+    { value: '*', name: '每天' },
+    { value: '1,2,3,4,5', name: '工作日' },
+    { value: '1', name: '每周一' },
+    { value: '2', name: '每周二' },
+    { value: '3', name: '每周三' },
+    { value: '4', name: '每周四' },
+    { value: '5', name: '每周五' },
+    { value: '6', name: '每周六' },
+    { value: '7', name: '每周日' },
+]
 export default {
   name: 'DeskList',
+    filters: {
+        'weekConversion': function (value1) {
+            for(let index in JobFreqList){
+                if(JobFreqList[index].value === value1){
+                    return JobFreqList[index].name
+                }
+            }
+            return value1
+        }
+    },
   data() {
     return {
 
         checkList:[],
+        checkObject:{},
       deskList: [
         { deskName: "vm1", cpu: 'I7', memory: '2058M' },
         { deskName: "vm2", cpu: 'I7', memory: '2058M' },
@@ -95,17 +124,7 @@ export default {
         { deskName: "vm9", cpu: 'I7', memory: '2058M' },
         { deskName: "vm10", cpu: 'I7', memory: '2058M' },
       ],
-      JobFreqList: [
-        { value: '*', name: '每天' },
-        { value: '1,2,3,4,5', name: '每工作日' },
-        { value: '1', name: '每周一' },
-        { value: '2', name: '每周二' },
-        { value: '3', name: '每周三' },
-        { value: '4', name: '每周四' },
-        { value: '5', name: '每周五' },
-        { value: '6', name: '每周六' },
-        { value: '7', name: '每周日' },
-      ],
+        JobFreqList: JobFreqList,
       title: "设定开关机Job",
       // 是否显示弹出层
       open: false,
@@ -139,18 +158,23 @@ export default {
 
   },
   methods: {
-      clickParent(e){
+      clickParent(e,event){
          // const checkBox = e.currentTarget.getElementsByTagName("input")[0]
+
           console.log(e)
           for(let desk in this.checkList){
             if (this.checkList[desk] === e){
                 this.checkList.splice(desk,1)
+                this.checkObject[e] = false;
+                // console.log(event.currentTarget)
+                // event.currentTarget.getElementsByClassName("transparent_80")[0].class = 'box-card transparent_0'
                 return
             }
 
           }
-
+          // event.currentTarget.getElementsByClassName("transparent_0")[0].class = 'box-card transparent_80'
           this.checkList.unshift(e)
+          this.checkObject[e] = true;
       },
 
     getSelected(){
@@ -247,8 +271,28 @@ export default {
 </script>
 
 <style lang="scss">
+  .el-card__body {
+    padding-left: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 2px;
+  }
   .green{
-    background-color: #cee7cb;
+    background-color: #13ce66;
+  }
+  .grey{
+    background-color: #c5c5c5 !important;
+  }
+  .violet{
+    background-color: rgba(142,21,128,0.66)
+  }
+  .transparent_80{
+    opacity: 0.8 ;
+    background-color: white;
+  }
+  .transparent_0{
+    opacity: 0.8 ;
+    background-color: transparent;
   }
   .content-container{
     height:80vh;
@@ -257,9 +301,14 @@ export default {
     overflow-x: hidden;
     overflow-y: auto;
   }
+  .el-button--warning {
+    color: #fff;
+    background-color: rgba(142, 21, 128, 0.66);
+    border-color: rgba(142, 21, 128, 0.66);
+  }
   .clickPanel{
-    background-color: transparent;
     width: 100%;
+    padding-left: 5px;
     position: relative;
     z-index: 1000;
   }

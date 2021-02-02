@@ -97,7 +97,7 @@ import {
 import { Message } from 'element-ui'
 let JobFreqList = [
     { value: '*', name: '每天' },
-    { value: '1,2,3,4,5', name: '每工作日' },
+    { value: '1,2,3,4,5', name: '工作日' },
     { value: '1', name: '每周一' },
     { value: '2', name: '每周二' },
     { value: '3', name: '每周三' },
