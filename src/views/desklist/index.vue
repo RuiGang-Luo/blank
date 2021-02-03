@@ -16,7 +16,7 @@
       <el-row :gutter="10" class="mb8">
 
           <el-col style="margin-bottom: 10px;" :span="4" v-for="item in deskList" :key="item.name" >
-            <div :class="{'clickPanel':true,'green':(item.power_state === 'POWERED_ON'),'violet':(item.jobInfo),'grey':(item.power_state === 'POWERED_OFF')}" @click.stop.prevent="clickParent(item.name,$event)">
+            <div :class="{'clickPanel':true,'green':(!item.jobInfo&&item.power_state === 'POWERED_ON'),'violet':(item.jobInfo),'grey':(!item.jobInfo&&item.power_state === 'POWERED_OFF')}" @click.stop.prevent="clickParent(item.name,$event)">
               <el-card :class="{'box-card':true, 'transparent_80':!checkObject[item.name],'transparent_0':checkObject[item.name]}" >
                 <div slot="header" class="clearfix">
                   <el-checkbox :label="item.name"  style=" padding: 3px 0" type="text"  :key="item.vm"  />
@@ -204,6 +204,7 @@ export default {
                 deskList().then((response) => {
                     this.deskList = response;
                 });
+                this.checkObject = {}
             });
         }
 
@@ -221,6 +222,7 @@ export default {
                   deskList().then((response) => {
                       this.deskList = response;
                   });
+                  this.checkObject = {}
               });
           }
       },
@@ -247,7 +249,7 @@ export default {
           // this.form.jobFreq
           // this.form.cron =
             const time = this.form.jobTime.split(":");
-            const cron = '? '+time[1]+' '+time[0]+' ? * '+this.form.jobFreq+' *'
+            const cron = '0-59 '+time[1]+' '+time[0]+' ? * '+this.form.jobFreq+' *'
             this.form.cron = cron
             this.form.target = this.getSelected()
             console.log(this.form)
@@ -257,6 +259,7 @@ export default {
                   type: 'success'
                 });
                 this.checkList = []
+                this.checkObject = {}
                 // deskList().then((response) => {
                 //     this.deskList = response;
                 // });

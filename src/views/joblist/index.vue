@@ -250,7 +250,7 @@ export default {
                 //     });
                 // }
                 const time = this.form.jobTime.split(":");
-                const cron = '0 '+time[1]+' '+time[0]+' ? * '+this.form.jobFreq+' *'
+                const cron = '0-59 '+time[1]+' '+time[0]+' ? * '+this.form.jobFreq+' *'
                 this.form.cron = cron
                 // this.form.target = this.getSelected()
                 console.log(this.form)
