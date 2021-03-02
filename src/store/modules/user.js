@@ -125,7 +125,7 @@ const actions = {
   getOrgCode ({ commit, state }) {
     return new Promise((resolve, reject) => {
       resolve({
-        userName: '无',
+        userName: 'admin',
         orgCode: '000'
       })
     })

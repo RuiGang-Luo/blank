@@ -74,6 +74,7 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import CheckCode from './CheckCode'
+import { getUserJson } from "@/api/static";
 
 export default {
   name: 'Login',
@@ -169,15 +170,31 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              this.loading = false
+          getUserJson().then(data =>{
+            var appData = data;
+            let isOk = false;
+            data.forEach(temp =>{
+              console.log(temp)
+              if(this.loginForm.username === temp.userName &&this.loginForm.password === temp.password){
+                isOk = true;
+              }
             })
-            .catch((data) => {
-              this.$message({ message: data, type: 'error', duration: 3 * 1000 })
+            if(isOk){
+              this.$store.dispatch('user/login', this.loginForm)
+                .then(() => {
+                  this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+                  this.loading = false
+                })
+                .catch((data) => {
+                  this.$message({ message: data, type: 'error', duration: 3 * 1000 })
+                  this.loading = false
+                })
+            } else {
+              this.$message.error('用户名或者密码错误，请检查后再试')
               this.loading = false
-            })
+            }
+          })
+
         } else {
           console.log('error submit!!')
           return false

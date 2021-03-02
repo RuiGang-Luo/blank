@@ -21,15 +21,15 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <span @click="setActiveName('secretKey','修改密码')">修改密码</span>
-          </el-dropdown-item>
-          <el-dropdown-item>
-            <span @click="setActiveName('email','问题反馈')">问题反馈</span>
-          </el-dropdown-item>
-          <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">退出</span>
-          </el-dropdown-item>
+<!--          <el-dropdown-item>-->
+<!--            <span @click="setActiveName('secretKey','修改密码')">修改密码</span>-->
+<!--          </el-dropdown-item>-->
+<!--          <el-dropdown-item>-->
+<!--            <span @click="setActiveName('email','问题反馈')">问题反馈</span>-->
+<!--          </el-dropdown-item>-->
+<!--          <el-dropdown-item divided>-->
+<!--            <span style="display:block;" @click="logout">退出</span>-->
+<!--          </el-dropdown-item>-->
         </el-dropdown-menu>
       </el-dropdown>
     </div>

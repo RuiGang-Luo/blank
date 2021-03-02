@@ -13,11 +13,12 @@ const name = defaultSettings.title || 'vue Element Admin' // page title
 // For example, Mac: sudo npm run
 // You can change the port by the following method:
 // port = 9527 npm run dev OR npm run dev --port = 9527
-// const port = process.env.port || process.env.npm_config_port || 9527 // dev port
-const port = 21006
+const port = process.env.port || process.env.npm_config_port || 9527 // dev port
+// const port = 21006
 const proxy_business = process.env.API_NETWORK_PROTOCOL + process.env.API_BUSINESS_DOMAIN + ':' + process.env.API_BUSINESS_PORT //+ (process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH)
 const proxy_core = process.env.API_NETWORK_PROTOCOL + process.env.API_CORE_DOMAIN + ':' + process.env.API_CORE_PORT //+ (process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH)
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
+console.log(proxy_core)
 module.exports = {
   /**
    * You will need to set publicPath if you plan to deploy your site under a sub path,
@@ -46,6 +47,13 @@ module.exports = {
     proxy: {
       // change xxx-api/login => mock/login
       // detail: https://cli.vuejs.org/config/#devserver-proxy
+      [(process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH) + '/static']: {
+        target: proxy_core,
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + (process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH) + '/static']: (process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH)
+        }
+      },
       [(process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH) + process.env.API_BUSINESS_PROXY_CONTEXT]: {
         target: proxy_business,
         changeOrigin: true,
