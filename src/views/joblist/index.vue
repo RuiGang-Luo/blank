@@ -121,7 +121,7 @@
           </el-form-item>
           <el-form-item label="执行时间" prop="jobTime">
             <div :style="{width:'202.71px',float:'left'}" >
-              <el-date-picker  v-model="form.startDate" value-format="yyyy-mm-dd" placeholder="起始日期">
+              <el-date-picker  v-model="form.startDate" value-format="yyyy-MM-dd" placeholder="起始日期">
               </el-date-picker>
             </div>
             <div :style="{width:'202.71px',float:'left'}" >
@@ -131,7 +131,7 @@
           </el-form-item>
           <el-form-item label="结束时间" prop="endDate">
             <div :style="{width:'202.71px',float:'left'}" >
-              <el-date-picker  v-model="form.endDate" value-format="yyyy-mm-dd" placeholder="结束日期">
+              <el-date-picker  v-model="form.endDate" value-format="yyyy-MM-dd" placeholder="结束日期">
               </el-date-picker>
             </div>
             <div :style="{width:'202.71px',float:'left'}" >
