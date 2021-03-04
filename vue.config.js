@@ -47,11 +47,11 @@ module.exports = {
     proxy: {
       // change xxx-api/login => mock/login
       // detail: https://cli.vuejs.org/config/#devserver-proxy
-      [(process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH) + '/static']: {
+      [(process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH) + '/resource']: {
         target: proxy_core,
         changeOrigin: true,
         pathRewrite: {
-          ['^' + (process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH) + '/static']: (process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH)
+          ['^' + (process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH) + '/resource']: (process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH)
         }
       },
       [(process.env.VUE_APP_PUBLIC_PATH === '/' ? '' : process.env.VUE_APP_PUBLIC_PATH) + process.env.API_BUSINESS_PROXY_CONTEXT]: {
